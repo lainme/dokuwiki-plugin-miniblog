@@ -64,6 +64,8 @@ class syntax_plugin_miniblog extends DokuWiki_Syntax_Plugin {
 
         // slice
         $page = $INPUT->int('page', 0); // current page
+        $last = $page+$num;
+        $more = ((count($entries) > $last) ? true : false);
         $entries = array_slice($entries, $page, $num);
 
         // blog entries
@@ -93,8 +95,6 @@ class syntax_plugin_miniblog extends DokuWiki_Syntax_Plugin {
         }
 
         // paganition
-        $last = $page+$num;
-        $more = ((count($entries) > $last) ? true : false);
         $link = '';
 
         if ($page > 0) {
@@ -104,10 +104,11 @@ class syntax_plugin_miniblog extends DokuWiki_Syntax_Plugin {
             $link .= '<p class="centeralign"><a href="'.wl($ID, 'page='.$page).'" class="wikilink1">较新的文章</a>';
 
             if ($more) $link .= ' | '; else $link .= '</p>';
-        } 
+        } else if ($more) {
+            $link .= '<p class="centeralign">';
 
         if ($more) {
-            $link .= '<p class="centeralign"><a href="'.wl($ID, 'page='.$last).'" class="wikilink1">较早的文章</a></p>';
+            $link .= '<a href="'.wl($ID, 'page='.$last).'" class="wikilink1">较早的文章</a></p>';
         }
 
         $renderer->doc .= $link;
