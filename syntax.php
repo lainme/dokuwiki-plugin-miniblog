@@ -106,6 +106,7 @@ class syntax_plugin_miniblog extends DokuWiki_Syntax_Plugin {
             if ($more) $link .= ' | '; else $link .= '</p>';
         } else if ($more) {
             $link .= '<p class="centeralign">';
+        }
 
         if ($more) {
             $link .= '<a href="'.wl($ID, 'page='.$last).'" class="wikilink1">较早的文章</a></p>';
