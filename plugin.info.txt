@@ -1,0 +1,7 @@
+base   miniblog
+author lainme
+email  lainme993@gmail.com
+date   2014-01-24
+name   miniblog plugin
+desc   A minimum blog setup
+url    https://github.com/lainme/dokuwiki-plugin-miniblog
