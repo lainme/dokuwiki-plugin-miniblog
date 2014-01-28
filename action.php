@@ -24,7 +24,7 @@ class action_plugin_miniblog extends DokuWiki_Action_Plugin {
         $event->preventDefault();
         $event->data['data'] = array();
 
-        $entries = $this->loadHelper('miniblog')->get_entries();
+        $entries = array_slice($this->loadHelper('miniblog')->get_entries(),0,$event->data['opt']['items']);
 
         foreach ($entries as $entry) {
             $event->data['data'][] = array(
