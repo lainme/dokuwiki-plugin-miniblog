@@ -73,7 +73,7 @@ class syntax_plugin_miniblog extends DokuWiki_Syntax_Plugin {
         foreach ($entries as $key => $entry) {
             $ins = p_cached_instructions(wikiFN($entry), false, $entry);
 
-            // delete heading and resolve internal links
+            // delete heading, resolve internal links and remove comment plugin
             $head = false;
             for ($i=0; $i<count($ins); $i++) {
                 switch ($ins[$i][0]) {
@@ -89,10 +89,13 @@ class syntax_plugin_miniblog extends DokuWiki_Syntax_Plugin {
                     case 'internalmedia':
                         resolve_mediaid(getNS($entry), $ins[$i][1][0], $exists);
                         break;
+                    case 'plugin':
+                        if ($ins[$i][1][0] == "disqus") unset($ins[$i]);
+                        break;
                 }
             }	
 
-            $renderer->doc .= '<h1><a id="'.$head.'" href="'.wl($entry).'" name="'.$head.'">'.$head.'</a></h1>'.p_render('xhtml',$ins,$info);
+            $renderer->doc .= '<h1><a id="'.$head.'" href="'.wl($entry).'" name="'.$head.'">'.$head.'</a></h1>'.p_render('xhtml', $ins, $info);
         }
 
         // paganition
