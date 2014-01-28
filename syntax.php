@@ -8,13 +8,9 @@
 
 // must be run within Dokuwiki
 if (!defined('DOKU_INC')) die();
-
-if (!defined('DOKU_LF')) define('DOKU_LF', "\n");
-if (!defined('DOKU_TAB')) define('DOKU_TAB', "\t");
 if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 
 require_once DOKU_PLUGIN.'syntax.php';
-require_once DOKU_INC.'inc/search.php';
 
 class syntax_plugin_miniblog extends DokuWiki_Syntax_Plugin {
     public function getType() {
@@ -34,20 +30,9 @@ class syntax_plugin_miniblog extends DokuWiki_Syntax_Plugin {
     }
 
     public function handle($match, $state, $pos, &$handler){
-        global $conf;
+        $entries = $this->loadHelper('miniblog')->get_entries();
 
-        // pages to display
-        search($pages, $conf['datadir'], 'search_pagename', array('query'=>'.txt'), 'blog');
-
-        // sort
-        $result = array();
-        foreach ($pages as $page) {
-            $key = p_get_metadata($page['id'], 'date created', METADATA_DONT_RENDER).'_'.$page['id'];
-            $result[$key] = $page['id'];
-        }
-        krsort($result);
-
-        return array(5,$result); // dispaly 5 entries per page
+        return array(5,$entries); // dispaly 5 entries per page
     }
 
     public function render($mode, &$renderer, $data) {
@@ -70,32 +55,10 @@ class syntax_plugin_miniblog extends DokuWiki_Syntax_Plugin {
         $entries = array_slice($entries, $page, $num);
 
         // blog entries
-        foreach ($entries as $key => $entry) {
-            $ins = p_cached_instructions(wikiFN($entry), false, $entry);
+        foreach ($entries as $entry) {
+            list($head, $content) = $this->loadHelper('miniblog')->get_contents($entry);
 
-            // delete heading, resolve internal links and remove comment plugin
-            $head = false;
-            for ($i=0; $i<count($ins); $i++) {
-                switch ($ins[$i][0]) {
-                    case 'header':
-                        if ($head === false) {
-                            $head = $ins[$i][1][0];
-                            unset($ins[$i]);
-                        }
-                        break;
-                    case 'internallink':
-                        resolve_pageid(getNS($entry), $ins[$i][1][0], $exists);
-                        break;
-                    case 'internalmedia':
-                        resolve_mediaid(getNS($entry), $ins[$i][1][0], $exists);
-                        break;
-                    case 'plugin':
-                        if ($ins[$i][1][0] == "disqus") unset($ins[$i]);
-                        break;
-                }
-            }	
-
-            $renderer->doc .= '<h1><a id="'.$head.'" href="'.wl($entry).'" name="'.$head.'">'.$head.'</a></h1>'.p_render('xhtml', $ins, $info);
+            $renderer->doc .= '<h1><a id="'.$head.'" href="'.wl($entry).'" name="'.$head.'">'.$head.'</a></h1>'.$content;
         }
 
         // paganition

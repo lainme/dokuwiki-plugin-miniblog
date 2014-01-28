@@ -5,10 +5,13 @@ entries. It borrows codes from the following plugins:
 
  - blog: https://www.dokuwiki.org/plugin:blog
  - include: https://www.dokuwiki.org/plugin:include
+ - blogtng: https://www.dokuwiki.org/plugin:blogtng
 
 The syntax is
 
   <miniblog>
+
+And the feed mode is "mode=miniblog".
 
 All documentation for this plugin can be found at
 https://github.com/lainme/dokuwiki-plugin-miniblog
