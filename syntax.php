@@ -53,6 +53,7 @@ class syntax_plugin_miniblog extends DokuWiki_Syntax_Plugin {
     public function render($mode, &$renderer, $data) {
         global $ID;
         global $INPUT;
+        global $INFO;
 
         if ($mode != 'xhtml') return false;
 
@@ -60,7 +61,7 @@ class syntax_plugin_miniblog extends DokuWiki_Syntax_Plugin {
 
         // disable cache and toc
         $renderer->info['cache'] = false;
-        $renderer->info['toc'] = false;
+        $INFO['prependTOC'] = false;
 
         // slice
         $page = $INPUT->int('page', 0); // current page
@@ -95,17 +96,12 @@ class syntax_plugin_miniblog extends DokuWiki_Syntax_Plugin {
         }
 
         // paganition
-        $link = '';
+        $link = '<p class="centeralign">';
 
         if ($page > 0) {
-            $page -= $num;
-            if ($page < 0) $page = 0;
-
-            $link .= '<p class="centeralign"><a href="'.wl($ID, 'page='.$page).'" class="wikilink1">较新的文章</a>';
-
+            $page = max(0, $page-$num);
+            $link .= '<a href="'.wl($ID, 'page='.$page).'" class="wikilink1">较新的文章</a>';
             if ($more) $link .= ' | '; else $link .= '</p>';
-        } else if ($more) {
-            $link .= '<p class="centeralign">';
         }
 
         if ($more) {
