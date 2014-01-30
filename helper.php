@@ -50,7 +50,7 @@ class helper_plugin_miniblog extends DokuWiki_Plugin {
                     resolve_mediaid(getNS($entry), $ins[$i][1][0], $exists);
                     break;
                 case 'plugin':
-                    if ($ins[$i][1][0] == "disqus") unset($ins[$i]);
+                    if ($ins[$i][1][0] == 'disqus') unset($ins[$i]);
                     break;
             }
         }	
