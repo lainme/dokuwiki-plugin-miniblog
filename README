@@ -7,11 +7,11 @@ entries. It borrows codes from the following plugins:
  - include: https://www.dokuwiki.org/plugin:include
  - blogtng: https://www.dokuwiki.org/plugin:blogtng
 
-The syntax is
+The syntax for displaying blog entries is
 
   <miniblog>
 
-And the feed mode is "mode=miniblog".
+And the feed mode is "feed.php?mode=miniblog".
 
 All documentation for this plugin can be found at
 https://github.com/lainme/dokuwiki-plugin-miniblog
