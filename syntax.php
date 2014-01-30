@@ -32,7 +32,7 @@ class syntax_plugin_miniblog extends DokuWiki_Syntax_Plugin {
     public function handle($match, $state, $pos, &$handler){
         $entries = $this->loadHelper('miniblog')->get_entries();
 
-        return array(5,$entries); // dispaly 5 entries per page
+        return array(5, $entries); // dispaly 5 entries per page
     }
 
     public function render($mode, &$renderer, $data) {
@@ -50,31 +50,27 @@ class syntax_plugin_miniblog extends DokuWiki_Syntax_Plugin {
 
         // slice
         $page = $INPUT->int('page', 0); // current page
-        $last = $page+$num;
-        $more = ((count($entries) > $last) ? true : false);
+        $less = (($page > 0) ? max(0, $page-$num) : false);
+        $more = ((count($entries) > $page+$num) ? $page+$num : false);
         $entries = array_slice($entries, $page, $num);
 
         // blog entries
         foreach ($entries as $entry) {
             list($head, $content) = $this->loadHelper('miniblog')->get_contents($entry);
 
-            $renderer->doc .= '<h1><a id="'.$head.'" href="'.wl($entry).'" name="'.$head.'">'.$head.'</a></h1>'.$content;
+            $renderer->doc .= '<h1><a href="'.wl($entry).'">'.$head.'</a></h1>'.$content;
         }
 
         // paganition
-        $link = '<p class="centeralign">';
-
-        if ($page > 0) {
-            $page = max(0, $page-$num);
-            $link .= '<a href="'.wl($ID, 'page='.$page).'" class="wikilink1">较新的文章</a>';
-            if ($more) $link .= ' | '; else $link .= '</p>';
+        $renderer->doc .= '<p class="centeralign">';
+        if ($less !== false) {
+            $renderer->doc .= '<a href="'.wl($ID, 'page='.$less).'" class="wikilink1">较新的文章</a>';
         }
-
-        if ($more) {
-            $link .= '<a href="'.wl($ID, 'page='.$last).'" class="wikilink1">较早的文章</a></p>';
+        $renderer->doc .= ' | ';
+        if ($more !== false) {
+            $renderer->doc .= '<a href="'.wl($ID, 'page='.$more).'" class="wikilink1">较早的文章</a>';
         }
-
-        $renderer->doc .= $link;
+        $renderer->doc .= '</p>';
             
         return true;
     }
