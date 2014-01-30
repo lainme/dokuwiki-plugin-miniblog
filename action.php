@@ -8,7 +8,7 @@
 
 // must be run within Dokuwik
 if (!defined('DOKU_INC')) die();
-if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
+if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN', DOKU_INC.'lib/plugins/');
 
 require_once DOKU_PLUGIN.'action.php';
 
@@ -24,7 +24,7 @@ class action_plugin_miniblog extends DokuWiki_Action_Plugin {
         $event->preventDefault();
         $event->data['data'] = array();
 
-        $entries = array_slice($this->loadHelper('miniblog')->get_entries(),0,$event->data['opt']['items']);
+        $entries = array_slice($this->loadHelper('miniblog')->get_entries(), 0, $event->data['opt']['items']);
 
         foreach ($entries as $entry) {
             $event->data['data'][] = array(
