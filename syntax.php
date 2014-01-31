@@ -61,11 +61,11 @@ class syntax_plugin_miniblog extends DokuWiki_Syntax_Plugin {
         // paganition
         $renderer->doc .= '<p class="centeralign">';
         if ($less !== false) {
-            $renderer->doc .= '<a href="'.wl($ID, 'page='.$less).'" class="wikilink1">较新的文章</a>';
+            $renderer->doc .= '<a href="'.wl($ID, 'page='.$less).'" class="wikilink1"><<较新的文章</a>';
         }
         $renderer->doc .= ' | ';
         if ($more !== false) {
-            $renderer->doc .= '<a href="'.wl($ID, 'page='.$more).'" class="wikilink1">较早的文章</a>';
+            $renderer->doc .= '<a href="'.wl($ID, 'page='.$more).'" class="wikilink1">较早的文章>></a>';
         }
         $renderer->doc .= '</p>';
             
