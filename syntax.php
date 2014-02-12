@@ -11,7 +11,7 @@ if (!defined('DOKU_INC')) die();
 
 class syntax_plugin_miniblog extends DokuWiki_Syntax_Plugin {
     public function getType() {
-        return 'protected';
+        return 'substition';
     }
 
     public function getSort() {
@@ -27,9 +27,7 @@ class syntax_plugin_miniblog extends DokuWiki_Syntax_Plugin {
     }
 
     public function handle($match, $state, $pos, &$handler){
-        $entries = $this->loadHelper('miniblog')->get_entries();
-
-        return array(5, $entries); // dispaly 5 entries per page
+        return true; // don't do anything
     }
 
     public function render($mode, &$renderer, $data) {
@@ -39,11 +37,12 @@ class syntax_plugin_miniblog extends DokuWiki_Syntax_Plugin {
 
         if ($mode != 'xhtml') return false;
 
-        list($num, $entries) = $data;
-
         // disable cache and toc
         $renderer->info['cache'] = false;
         $INFO['prependTOC'] = false;
+
+        $entries = $this->loadHelper('miniblog')->get_entries();
+        $num = 5; // display 5 entries per page
 
         // slice
         $page = $INPUT->int('page', 0); // current page
@@ -51,7 +50,7 @@ class syntax_plugin_miniblog extends DokuWiki_Syntax_Plugin {
         $more = ((count($entries) > $page+$num) ? $page+$num : false);
         $entries = array_slice($entries, $page, $num);
 
-        // blog entries
+        // show entries
         foreach ($entries as $entry) {
             list($head, $content) = $this->loadHelper('miniblog')->get_contents($entry);
 
