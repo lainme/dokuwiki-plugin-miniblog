@@ -46,8 +46,8 @@ class syntax_plugin_miniblog_entry extends DokuWiki_Syntax_Plugin {
 
         // slice
         $page = $num*$INPUT->int('page', 0); // index of first entry in current page
-        $less = (($page > 0) ? max(0, ($page-$num)/$num) : 0); // previous page
-        $more = ((count($entries) > $page+$num) ? ($page+$num)/$num : 0); // next page
+        $less = (($page > 0) ? max(0, ($page-$num)/$num) : -1); // previous page
+        $more = ((count($entries) > $page+$num) ? ($page+$num)/$num : -1); // next page
         $entries = array_slice($entries, $page, $num);
 
         // comment count
@@ -68,10 +68,10 @@ class syntax_plugin_miniblog_entry extends DokuWiki_Syntax_Plugin {
 
         // paganition
         $renderer->doc .= '<div id="miniblog_paganition">';
-        if ($less) {
+        if ($less !== -1) {
             $renderer->doc .= '<p class="less"><a href="'.wl($ID, 'page='.$less).'" class="wikilink1">'.$this->getLang('newer').'</a></p>';
         }
-        if ($more) {
+        if ($more !== -1) {
             $renderer->doc .= '<p class="more"><a href="'.wl($ID, 'page='.$more).'" class="wikilink1">'.$this->getLang('older').'</a></p>';
         }
         $renderer->doc .= '</div>';
