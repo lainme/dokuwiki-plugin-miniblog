@@ -61,7 +61,7 @@ class syntax_plugin_miniblog_entry extends DokuWiki_Syntax_Plugin {
 
             $renderer->doc .= '<h1><a href="'.wl($entry['id']).'">'.$head.'</a></h1>';
             $renderer->doc .= '<p class="miniblog_info">';
-            $renderer->doc .= dformat($entry['date']).' Â· <a href="'.$wl($entry['id'],'',true).'#disqus_thread"/>';
+            $renderer->doc .= dformat($entry['date']).' Â· <a href="'.wl($entry['id'],'',true).'#disqus_thread"/>';
             $renderer->doc .= '</p>';
             $renderer->doc .= $content;
         }
