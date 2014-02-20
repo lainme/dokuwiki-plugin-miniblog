@@ -15,30 +15,26 @@ class action_plugin_miniblog extends DokuWiki_Action_Plugin {
         $controller->register_hook('FEED_ITEM_ADD', 'BEFORE', $this, 'handle_item_add');
     }
 
-    function handle_mode_unknown(&$event, $param) {
+    public function handle_mode_unknown(&$event, $param) {
         if ($event->data['opt']['feed_mode'] != 'miniblog') return;
 
         $event->preventDefault();
         $event->data['data'] = array();
 
-        $entries = array_slice($this->loadHelper('miniblog')->get_entries(), 0, $event->data['opt']['items']);
+        $entries = $this->loadHelper('miniblog_entry')->entry_list('blog');
+        $entries = array_slice($entries, 0, $event->data['opt']['items']);
 
+        // add entries to feed
         foreach ($entries as $entry) {
-            $event->data['data'][] = array(
-                'id' => $entry,
-                'date' => p_get_metadata($entry, 'date created', METADATA_DONT_RENDER),
-                'user' => p_get_metadata($entry, 'user', METADATA_DONT_RENDER),
-            );
+            $event->data['data'][] = $entry;
         }
     }
 
-    function handle_item_add(&$event, $param) {
+    public function handle_item_add(&$event, $param) {
         if ($event->data['opt']['feed_mode'] != 'miniblog') return;
 
-        // strip first heading 
-        $entry = $event->data['ditem']['id'];
-        list($head, $content) = $this->loadHelper('miniblog')->get_contents($entry);
-
+        // remove first heading from content
+        list($head, $content) = $this->loadHelper('miniblog_entry')->entry_content($event->data['ditem']['id']);
         $event->data['item']->description = $content;
     }
 }

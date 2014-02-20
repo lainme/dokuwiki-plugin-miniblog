@@ -1,0 +1,12 @@
+p.miniblog_info {
+    font-size: 90%;
+    color: __text_alt__;
+}
+
+div#miniblog_paganition p.less {
+    float: left;
+}
+
+div#miniblog_paganition p.more {
+    float: right;
+}
