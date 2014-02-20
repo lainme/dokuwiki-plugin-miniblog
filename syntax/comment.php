@@ -43,6 +43,7 @@ class syntax_plugin_miniblog_comment extends DokuWiki_Syntax_Plugin {
             'disqus_url' => wl($ID, '', true),
         );
 
+        $renderer->doc .= '<div id="disqus_thread"></div>';
         $renderer->doc .= plugin_load('helper', 'miniblog_comment')->comment_script($source, $option);
 
         return true;
