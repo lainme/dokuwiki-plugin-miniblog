@@ -36,7 +36,7 @@ class syntax_plugin_miniblog_comment extends DokuWiki_Syntax_Plugin {
 
         if ($mode != 'xhtml') return false;
 
-        $source = "embed.js";
+        $source = 'embed.js';
         $option = array(
             'disqus_shortname' => $this->getConf('shortname'),
             'disqus_title' => addslashes($INFO['meta']['title']),

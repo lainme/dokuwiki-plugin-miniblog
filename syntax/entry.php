@@ -51,7 +51,7 @@ class syntax_plugin_miniblog_entry extends DokuWiki_Syntax_Plugin {
         $entries = array_slice($entries, $page, $num);
 
         // comment count
-        $source = "count.js";
+        $source = 'count.js';
         $option = array('disqus_shortname' => $this->getConf('shortname'));
         $renderer->doc .= plugin_load('helper', 'miniblog_comment')->comment_script($source, $option);
 
