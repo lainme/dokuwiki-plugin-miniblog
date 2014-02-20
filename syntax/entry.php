@@ -41,7 +41,7 @@ class syntax_plugin_miniblog_entry extends DokuWiki_Syntax_Plugin {
         $renderer->info['cache'] = false;
         $INFO['prependTOC'] = false;
 
-        $entries = $this->plugin_load('helper', 'miniblog_entry')->entry_list('blog');
+        $entries = plugin_load('helper', 'miniblog_entry')->entry_list('blog');
         $num = 5; // display 5 entries per page
 
         // slice
@@ -57,7 +57,7 @@ class syntax_plugin_miniblog_entry extends DokuWiki_Syntax_Plugin {
 
         // show entries
         foreach ($entries as $entry) {
-            list($head, $content) = $this->plugin_load('helper', 'miniblog_entry')->entry_content($entry['id']);
+            list($head, $content) = plugin_load('helper', 'miniblog_entry')->entry_content($entry['id']);
 
             $renderer->doc .= '<h1><a href="'.wl($entry['id']).'">'.$head.'</a></h1>';
             $renderer->doc .= '<p class="miniblog_info">';
