@@ -63,7 +63,7 @@ class syntax_plugin_miniblog_entry extends DokuWiki_Syntax_Plugin {
             $renderer->doc .= '<p class="miniblog_info">';
             $renderer->doc .= dformat($entry['date']).' · '.$entry['user'].' · <a href="'.wl($entry['id'],'',true).'#disqus_thread"></a>';
             $renderer->doc .= '</p>';
-            $renderer->doc .= $content;
+            $renderer->doc .= html_secedit($content, false); // no section edit button
         }
 
         // paganition
