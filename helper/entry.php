@@ -18,7 +18,7 @@ class helper_plugin_miniblog_entry extends DokuWiki_Plugin {
 
         // sort
         $entries = array();
-        foreach ($pages as $page) {
+        foreach ((array)$pages as $page) {
             $date = p_get_metadata($page['id'], 'date created', METADATA_DONT_RENDER);
             $user = p_get_metadata($page['id'], 'user', METADATA_DONT_RENDER);
 
