@@ -41,6 +41,7 @@ class syntax_plugin_miniblog_comment extends DokuWiki_Syntax_Plugin {
             'disqus_shortname' => $this->getConf('shortname'),
             'disqus_title' => addslashes($INFO['meta']['title']),
             'disqus_url' => wl($ID, '', true),
+            'disqus_identifier' => $ID,
         );
 
         $renderer->doc .= '<div id="disqus_thread"></div>';
