@@ -33,7 +33,9 @@ class helper_plugin_miniblog_entry extends DokuWiki_Plugin {
         return $entries;
     }
 
-    public function entry_content($id) {
+    public function entry_content($id, $canonical=false) {
+        global $conf;
+
         $ins = p_cached_instructions(wikiFN($id), false, $id);
 
         // delete heading, resolve internal links and remove comment
@@ -58,6 +60,11 @@ class helper_plugin_miniblog_entry extends DokuWiki_Plugin {
             }
         }	
 
-        return array($head, p_render('xhtml', $ins, $info));
+        $html = p_render('xhtml', $ins, $info);
+        if (!$conf['canonical'] && $canonical) {
+            $base = preg_quote(DOKU_REL, '/');
+            $html = preg_replace('/(<a href|<img src)="('.$base.')/s', '$1="'.DOKU_URL, $html);
+        }
+        return array($head, $html);
     }
 }

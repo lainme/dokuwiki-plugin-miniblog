@@ -34,7 +34,7 @@ class action_plugin_miniblog extends DokuWiki_Action_Plugin {
         if ($event->data['opt']['feed_mode'] != 'miniblog') return;
 
         // remove first heading from content
-        list($head, $content) = $this->loadHelper('miniblog_entry')->entry_content($event->data['ditem']['id']);
+        list($head, $content) = $this->loadHelper('miniblog_entry')->entry_content($event->data['ditem']['id'], true);
         $event->data['item']->description = $content;
     }
 }
