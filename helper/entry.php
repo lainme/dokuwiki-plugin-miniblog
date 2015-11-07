@@ -3,6 +3,9 @@
  * DokuWiki Plugin miniblog
  *
  * @license GPL 2 http://www.gnu.org/licenses/gpl-2.0.html
+ * @author  Esther Brunner <wikidesign@gmail.com>
+ * @author  Michael Klier <chi@chimeric.de>
+ * @author  Gina Haeussge <osd@foosel.net>
  * @author  lainme <lainme993@gmail.com>
  */
 
@@ -58,7 +61,7 @@ class helper_plugin_miniblog_entry extends DokuWiki_Plugin {
                     if ($ins[$i][1][0] == 'miniblog_comment') unset($ins[$i]);
                     break;
             }
-        }	
+        }
 
         $html = p_render('xhtml', $ins, $info);
         if (!$conf['canonical'] && $canonical) {
