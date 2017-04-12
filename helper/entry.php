@@ -3,9 +3,9 @@
  * DokuWiki Plugin miniblog
  *
  * @license GPL 2 http://www.gnu.org/licenses/gpl-2.0.html
- * @author  Esther Brunner <wikidesign@gmail.com>
- * @author  Michael Klier <chi@chimeric.de>
- * @author  Gina Haeussge <osd@foosel.net>
+ * @author  Esther Brunner <wikidesign@gmail.com> (upstream)
+ * @author  Michael Klier <chi@chimeric.de> (upstrema)
+ * @author  Gina Haeussge <osd@foosel.net> (upstream)
  * @author  lainme <lainme993@gmail.com>
  */
 

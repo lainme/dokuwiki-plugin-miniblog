@@ -1,8 +1,7 @@
 miniblog Plugin for DokuWiki
 
 A simple blog plugin that treats pages in 'blog' namespace as blog
-entries. It borrows codes from the following plugins: blog, include,
-blogtng, disqus.
+entries, based on the following plugins: blog, include, blogtng, disqus.
 
 Configurations:
     specify the disqus shortname in configuration manager
