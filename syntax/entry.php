@@ -61,22 +61,28 @@ class syntax_plugin_miniblog_entry extends DokuWiki_Syntax_Plugin {
         foreach ($entries as $entry) {
             list($head, $content) = plugin_load('helper', 'miniblog_entry')->entry_content($entry['id']);
 
-            $renderer->doc .= '<h1 class="miniblog_head"><a href="'.wl($entry['id']).'">'.$head.'</a></h1>';
-            $renderer->doc .= '<p class="miniblog_info">';
-            $renderer->doc .= dformat($entry['date']).' · '.$entry['user'].' · <a href="'.wl($entry['id'],'',true).'#disqus_thread"></a>';
-            $renderer->doc .= '</p>';
+            $renderer->doc .= '<article class="entry">';
+            $renderer->doc .= '<div class="entry-content">';
+            $renderer->doc .= '<h1><a href="'.wl($entry['id']).'">'.$head.'</a></h1>';
             $renderer->doc .= html_secedit($content, false); // no section edit button
+            $renderer->doc .= '</div>';
+            $renderer->doc .= '<footer class="entry-footer">';
+            $renderer->doc .= '<span class="entry-date">'.dformat($entry['date']).'</span>';
+            $renderer->doc .= '<span class="entry-author">'.$entry['user'].'</span>';
+            $renderer->doc .= '<span class="entry-comment"><a href="'.wl($entry['id'],'',true).'#disqus_thread"></a></span>';
+            $renderer->doc .= '</footer>';
+            $renderer->doc .= '</article>';
         }
 
         // paganition
-        $renderer->doc .= '<div id="miniblog_paganition">';
+        $renderer->doc .= '<article class="entry entry-navigation"><div class="entry-content">';
         if ($less !== -1) {
-            $renderer->doc .= '<p class="less"><a href="'.wl($ID, 'page='.$less).'" class="wikilink1">'.$this->getLang('newer').'</a></p>';
+            $renderer->doc .= '<p class="medialeft"><a href="'.wl($ID, 'page='.$less).'" class="wikilink1">'.$this->getLang('newer').'</a></p>';
         }
         if ($more !== -1) {
-            $renderer->doc .= '<p class="more"><a href="'.wl($ID, 'page='.$more).'" class="wikilink1">'.$this->getLang('older').'</a></p>';
+            $renderer->doc .= '<p class="mediaright"><a href="'.wl($ID, 'page='.$more).'" class="wikilink1">'.$this->getLang('older').'</a></p>';
         }
-        $renderer->doc .= '</div>';
+        $renderer->doc .= '</div></article>';
 
         return true;
     }
