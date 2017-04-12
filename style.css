@@ -1,0 +1,11 @@
+.home #twentyfifteen__entry,
+.home #twentyfifteen__entry-content {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.home #twentyfifteen__entry {
+    background-color: @ini_background_site;
+}
