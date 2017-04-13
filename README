@@ -15,6 +15,11 @@ Syntax:
 Feed:
     The feed URL is "feed.php?mode=miniblog".
 
+Branches:
+
+    If you are using the twentyfifteen theme, choose the 'twentyfifteen'
+    branch.
+
 All documentation for this plugin can be found at
 https://github.com/lainme/dokuwiki-plugin-miniblog
 
