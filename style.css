@@ -1,6 +1,5 @@
 .mode_show.home #twentyfifteen__entry,
 .mode_show.home #twentyfifteen__entry-content {
-    margin-left: 0 !important;
     margin-right: 0 !important;
     margin-bottom: 0 !important;
     padding: 0 !important;
@@ -10,8 +9,10 @@
 
 .mode_show.home #twentyfifteen__entry {
     background-color: @ini_background_site;
+    margin-left: 1px !important;
 }
 
 .mode_show.home #twentyfifteen__entry-content {
     margin-top: 0 !important;
+    margin-left: 0 !important;
 }
