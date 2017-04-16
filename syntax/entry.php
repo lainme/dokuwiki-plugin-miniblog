@@ -29,7 +29,7 @@ class syntax_plugin_miniblog_entry extends DokuWiki_Syntax_Plugin {
     }
 
     public function handle($match, $state, $pos, &$handler){
-        return mb_substr($match, 13, -1);
+        return trim(mb_substr($match, 10, -1));
     }
 
     public function render($mode, &$renderer, $data) {
@@ -57,7 +57,7 @@ class syntax_plugin_miniblog_entry extends DokuWiki_Syntax_Plugin {
         $renderer->doc .= plugin_load('helper', 'miniblog_comment')->comment_script($source, $option);
 
         // contents
-        if ($data  == 'twentyfifteen') {
+        if ($data == 'twentyfifteen') {
             $this->render_twentyfifteen($renderer, $entries, $less, $more);
         } else {
             $this->render_default($renderer, $entries, $less, $more);
