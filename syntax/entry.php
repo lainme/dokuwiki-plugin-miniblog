@@ -58,9 +58,9 @@ class syntax_plugin_miniblog_entry extends DokuWiki_Syntax_Plugin {
 
         // contents
         if ($data  == 'twentyfifteen') {
-            render_twentyfifteen($renderer, $entries, $less, $more);
+            $this->render_twentyfifteen($renderer, $entries, $less, $more);
         } else {
-            render_default($renderer, $entries, $less, $more);
+            $this->render_default($renderer, $entries, $less, $more);
         }
         return true;
     }
