@@ -1,3 +1,10 @@
+/* Default */
+p.miniblog_info {
+    color: __text_neu__;
+    margin: 0.2em 0 0.4em;
+}
+
+/* Twenty Fifteen*/
 .mode_show.home #twentyfifteen__entry,
 .mode_show.home #twentyfifteen__entry-content {
     margin-right: 0 !important;

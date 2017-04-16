@@ -25,15 +25,14 @@ class syntax_plugin_miniblog_entry extends DokuWiki_Syntax_Plugin {
     }
 
     public function connectTo($mode) {
-        $this->Lexer->addSpecialPattern('<miniblog>', $mode, 'plugin_miniblog_entry');
+        $this->Lexer->addSpecialPattern('<miniblog.*>', $mode, 'plugin_miniblog_entry');
     }
 
     public function handle($match, $state, $pos, &$handler){
-        return array();
+        return mb_substr($match, 13, -1);
     }
 
     public function render($mode, &$renderer, $data) {
-        global $ID;
         global $INPUT;
         global $INFO;
 
@@ -57,6 +56,41 @@ class syntax_plugin_miniblog_entry extends DokuWiki_Syntax_Plugin {
         $option = array('disqus_shortname' => $this->getConf('shortname'));
         $renderer->doc .= plugin_load('helper', 'miniblog_comment')->comment_script($source, $option);
 
+        // contents
+        if ($data  == 'twentyfifteen') {
+            render_twentyfifteen($renderer, $entries, $less, $more);
+        } else {
+            render_default($renderer, $entries, $less, $more);
+        }
+        return true;
+    }
+
+    function render_default($renderer, $entries, $less, $more) {
+        global $ID;
+
+        // show entries
+        foreach ($entries as $entry) {
+            list($head, $content) = plugin_load('helper', 'miniblog_entry')->entry_content($entry['id']);
+
+            $renderer->doc .= '<h1><a href="'.wl($entry['id']).'">'.$head.'</a></h1>';
+            $renderer->doc .= '<p class="miniblog_info">';
+            $renderer->doc .= dformat($entry['date']).' · '.$entry['user'].' · <a href="'.wl($entry['id'],'',true).'#disqus_thread"></a>';
+            $renderer->doc .= '</p>';
+            $renderer->doc .= html_secedit($content, false); // no section edit button
+        }
+
+        // pagination
+        if ($less !== -1) {
+            $renderer->doc .= '<p class="medialeft"><a href="'.wl($ID, 'page='.$less).'" class="wikilink1">'.$this->getLang('newer').'</a></p>';
+        }
+        if ($more !== -1) {
+            $renderer->doc .= '<p class="mediaright"><a href="'.wl($ID, 'page='.$more).'" class="wikilink1">'.$this->getLang('older').'</a></p>';
+        }
+    }
+
+    function render_twentyfifteen($renderer, $entries, $less, $more) {
+        global $ID;
+
         // show entries
         foreach ($entries as $entry) {
             list($head, $content) = plugin_load('helper', 'miniblog_entry')->entry_content($entry['id']);
@@ -74,7 +108,7 @@ class syntax_plugin_miniblog_entry extends DokuWiki_Syntax_Plugin {
             $renderer->doc .= '</article>';
         }
 
-        // paganition
+        // pagination
         $renderer->doc .= '<article class="entry entry-navigation"><div class="entry-content">';
         if ($less !== -1) {
             $renderer->doc .= '<p class="medialeft"><a href="'.wl($ID, 'page='.$less).'" class="wikilink1">'.$this->getLang('newer').'</a></p>';
@@ -83,7 +117,5 @@ class syntax_plugin_miniblog_entry extends DokuWiki_Syntax_Plugin {
             $renderer->doc .= '<p class="mediaright"><a href="'.wl($ID, 'page='.$more).'" class="wikilink1">'.$this->getLang('older').'</a></p>';
         }
         $renderer->doc .= '</div></article>';
-
-        return true;
     }
 }
