@@ -9,16 +9,13 @@ Configurations:
 Syntax:
     1. Displaying a list of blog entries
         <miniblog>
+    2. Displaying a list of blog entries when using 'twentyfifteen' template
+        <miniblog twentyfifteen>
     2. Adding disqus comment to a post
         ~~DISQUS~~
 
 Feed:
     The feed URL is "feed.php?mode=miniblog".
-
-Branches:
-
-    If you are using the twentyfifteen theme, choose the 'twentyfifteen'
-    branch.
 
 All documentation for this plugin can be found at
 https://github.com/lainme/dokuwiki-plugin-miniblog

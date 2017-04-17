@@ -1,17 +1,25 @@
-h1.miniblog_head {
-    margin: 0 0 0.2em;
-}
-
+/* Default */
 p.miniblog_info {
-    font-size: 90%;
     color: __text_neu__;
-    margin: 0 0 0.4em;
+    margin: 0.2em 0 0.4em;
 }
 
-div#miniblog_paganition p.less {
-    float: left;
+/* Twenty Fifteen*/
+.mode_show.home #twentyfifteen__entry,
+.mode_show.home #twentyfifteen__entry-content {
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
 }
 
-div#miniblog_paganition p.more {
-    float: right;
+.mode_show.home #twentyfifteen__entry {
+    background-color: @ini_background_site;
+    margin-left: 1px !important;
+}
+
+.mode_show.home #twentyfifteen__entry-content {
+    margin-top: 0 !important;
+    margin-left: 0 !important;
 }
