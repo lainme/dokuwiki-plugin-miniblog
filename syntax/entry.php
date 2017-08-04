@@ -28,11 +28,11 @@ class syntax_plugin_miniblog_entry extends DokuWiki_Syntax_Plugin {
         $this->Lexer->addSpecialPattern('<miniblog.*>', $mode, 'plugin_miniblog_entry');
     }
 
-    public function handle($match, $state, $pos, &$handler){
+    public function handle($match, $state, $pos, Doku_Handler $handler){
         return trim(mb_substr($match, 10, -1));
     }
 
-    public function render($mode, &$renderer, $data) {
+    public function render($mode, Doku_Renderer $renderer, $data) {
         global $INPUT;
         global $INFO;
 

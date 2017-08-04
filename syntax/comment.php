@@ -27,11 +27,11 @@ class syntax_plugin_miniblog_comment extends DokuWiki_Syntax_Plugin {
         $this->Lexer->addSpecialPattern('~~DISQUS~~', $mode, 'plugin_miniblog_comment');
     }
 
-    public function handle($match, $state, $pos, &$handler){
+    public function handle($match, $state, $pos, Doku_Handler $handler){
         return array();
     }
 
-    public function render($mode, &$renderer, $data) {
+    public function render($mode, Doku_Renderer $renderer, $data) {
         global $ID;
         global $INFO;
 
